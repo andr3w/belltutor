@@ -1,0 +1,254 @@
+body {
+  background: #0d0d1a;
+  color: #ddd;
+  margin: 0;
+  font-family: sans-serif;
+  overflow: hidden;
+}
+/* dvh, not vh: on a phone with the address bar showing, 100vh is taller than what can
+   be seen. The vh line is the fallback for older browsers. */
+#app {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 16px;
+  padding-bottom: calc(8px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  gap: 8px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+#top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 14px;
+  color: #aaa;
+  align-items: center;
+}
+#top a, a.back {
+  color: #6cf;
+  text-decoration: none;
+  border: 1px solid #2b6b9b;
+  border-radius: 6px;
+  padding: 6px 12px;
+}
+.hidden {
+  visibility: hidden;
+}
+/* The tower is the largest square the space allows, whichever way round the screen is. */
+#stage {
+  flex: 1;
+  min-height: 0;
+  container-type: size;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#tower {
+  position: relative;
+  width: min(100cqw, 100cqh);
+  height: min(100cqw, 100cqh);
+}
+#tower svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+/* A rope: the sally in reach at handstroke; pulled up out of the window at backstroke,
+   leaving the tail end where the hand is. */
+g.rope line, g.rope path {
+  stroke: #d8c9a3;
+  stroke-width: 0.9;
+  fill: none;
+}
+g.rope g.pull {
+  transition: transform 0.15s ease-out;
+}
+g.rope.back g.pull {
+  transform: translateY(-11px);
+}
+g.rope.struck rect.sally {
+  animation: struck 0.35s ease-out;
+}
+@keyframes struck {
+  0% {
+    filter: brightness(1.8);
+  }
+}
+g.rope rect.hit {
+  fill: transparent;
+}
+g.rope text {
+  fill: #888;
+  font-size: 5px;
+  dominant-baseline: middle;
+}
+g.rope.mine {
+  cursor: pointer;
+}
+g.rope.mine text {
+  fill: #6cf;
+  font-weight: bold;
+}
+#call {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 5.5cqmin;
+  font-weight: bold;
+  color: #fb4;
+}
+#call.new {
+  animation: called 0.5s ease-out;
+}
+@keyframes called {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.3);
+  }
+}
+#meter {
+  width: 100%;
+  height: 36px;
+  background: #14141f;
+  border-radius: 6px;
+}
+#meter rect.band {
+  fill: #1a2a1a;
+}
+#meter line {
+  stroke: #4a4;
+  stroke-width: 1;
+}
+#meter text {
+  fill: #556;
+  font-size: 8px;
+}
+#meter text.late {
+  text-anchor: end;
+}
+#meter circle.good {
+  fill: #6c6;
+}
+#meter circle.ok {
+  fill: #fb4;
+}
+#meter circle.bad {
+  fill: #e55;
+}
+#stats, #status {
+  font-size: 14px;
+  text-align: center;
+  min-height: 18px;
+}
+#stats {
+  color: #bbb;
+  font-family: monospace;
+}
+#status {
+  color: #888;
+}
+#look, #ring {
+  border-radius: 10px;
+  cursor: pointer;
+  touch-action: manipulation;
+  font-weight: bold;
+}
+#look {
+  padding: 12px 0;
+  font-size: 18px;
+  border: 1px solid #a72;
+  background: #2a2010;
+  color: #fb4;
+}
+#ring {
+  padding: 26px 0;
+  font-size: 28px;
+  border: 1px solid #2b6b9b;
+  background: #16243a;
+  color: #6cf;
+  user-select: none;
+}
+#look:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+body.options {
+  overflow: auto;
+}
+body.options #app {
+  height: auto;
+  gap: 16px;
+}
+body.options h1 {
+  font-size: 24px;
+  margin: 8px 0;
+}
+div.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+div.field label {
+  font-size: 14px;
+  color: #aaa;
+  text-transform: uppercase;
+}
+div.field select, div.field input {
+  background: #1a1a2a;
+  color: #ddd;
+  border: 1px solid #333;
+  border-radius: 6px;
+  font-size: 17px;
+  padding: 8px;
+}
+div.field input[type=range] {
+  padding: 0;
+  width: 60%;
+  vertical-align: middle;
+}
+div.field span.value {
+  margin-left: 10px;
+}
+div.field span.note {
+  color: #667;
+  font-size: 13px;
+}
+a.back {
+  align-self: flex-start;
+  margin-top: 8px;
+}
+g.rope.follow rect.hit {
+  fill: rgba(251, 180, 68, 0.15);
+  stroke: #fb4;
+  stroke-width: 0.6;
+}
+g.rope.follow text {
+  fill: #fb4;
+  font-weight: bold;
+}
+#assist {
+  font-size: 22px;
+  font-weight: bold;
+  color: #fb4;
+  text-align: center;
+  min-height: 28px;
+}
+div.field label.check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  color: #ddd;
+  text-transform: none;
+  padding: 4px 0;
+}
+label.check input {
+  width: 20px;
+  height: 20px;
+}

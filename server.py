@@ -17,7 +17,11 @@ def inject_v():
 
 @app.route('/')
 def index():
-  return render_template('index.html')
+  return render_template('index.html', page='ring')
+
+@app.route('/options')
+def options():
+  return render_template('index.html', page='options')
 
 # Both are served from the root rather than /static: a service worker can only control
 # pages under its own path, and the manifest's scope has to match.
